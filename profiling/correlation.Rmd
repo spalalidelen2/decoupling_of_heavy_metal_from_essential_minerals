@@ -1,0 +1,77 @@
+---
+title: "correlation_test"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir=normalizePath('../')) 
+```
+
+
+
+```{r cars}
+mydata <- read.csv("data/Phe_282_mineral_ziegler.csv")
+cor.test(mydata$Cd111, mydata$Zn66)
+cor(mydata$Cd111, mydata$Zn66,  method = "pearson", use = "complete.obs")
+
+
+mydata2 <- read.csv("data/IBM.AssPan.09PUdataset.csv")
+View(mydata2)
+library("ggpubr")
+
+p1 <- ggscatter(mydata2, x = "Cd111", y = "Fe57",
+               add = "reg.line", 
+               add.params = list(color = "red", fill = "lightgray"),
+               conf.int = TRUE,
+               cor.coef = TRUE, cor.method = "pearson",
+               xlab = "Cd111", ylab = "Fe")
+p1
+
+p2 <- ggscatter(mydata2, x = "Cd111", y = "Zn66",
+               add = "reg.line", 
+               add.params = list(color = "red", fill = "lightgray"),
+               conf.int = TRUE,
+               cor.coef = TRUE, cor.method = "pearson",
+               xlab = "Cd111", ylab = "Zn")
+p2
+
+p <- ggscatter(mydata, x = "Cd111", y = "Fe57",
+               add = "reg.line", 
+               add.params = list(color = "red", fill = "lightgray"),
+               conf.int = TRUE,
+               cor.coef = TRUE, cor.method = "pearson",
+               xlab = "Cd", ylab = "Fe")
+p
+
+
+mydata3 <- read.csv("data/IBM.AssPan.Ky21.10PUdataset.csv")
+
+
+p <- ggscatter(mydata3, x = "Cd111", y = "Zn66",
+               add = "reg.line", 
+               add.params = list(color = "red", fill = "lightgray"),
+               conf.int = TRUE,
+               cor.coef = TRUE, cor.method = "pearson",
+               xlab = "Cd", ylab = "Zn")
+p
+
+
+p <- ggscatter(mydata, x = "Fe57", y = "Zn66",
+               add = "reg.line", 
+               add.params = list(color = "red", fill = "lightgray"),
+               conf.int = TRUE,
+               cor.coef = TRUE, cor.method = "pearson",
+               xlab = "Miles/(US) gallon", ylab = "Weight (1000 lbs)")
+p
+
+
+
+
+ggscatter(mydata, x = "Cd111", y = "Zn66",
+          add = "reg.line", add.params = list(color = "darkblue"), conf.int = TRUE, repel = TRUE, color = "Trait", label = "Trait",
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "Micronutrient Content of Maize in Publicly Available Data", ylab = "Micronutrient Content of Maize from Test Run")
+
+```
+
